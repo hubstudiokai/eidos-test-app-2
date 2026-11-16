@@ -28,10 +28,68 @@ function page(name) {
     <style>
       body {
         background-color: green;
+        margin: 0;
+        font-family: sans-serif;
+      }
+      nav {
+        background: #333;
+        color: white;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .menu-toggle {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+      }
+      .menu-items {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .menu-items li {
+        margin-left: 1rem;
+      }
+      .menu-items a {
+        color: white;
+        text-decoration: none;
+      }
+      @media (max-width: 600px) {
+        .menu-toggle {
+          display: block;
+        }
+        .menu-items {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 3.5rem;
+          right: 0;
+          background: #333;
+          width: 100%;
+          padding: 1rem;
+        }
+        .menu-items.show {
+          display: flex;
+        }
+        .menu-items li {
+          margin: 0.5rem 0;
+        }
       }
     </style>
   </head>
   <body>
+    <nav>
+      <div>Mon Site</div>
+      <div class="menu-toggle" onclick="document.querySelector('.menu-items').classList.toggle('show')">☰</div>
+      <ul class="menu-items">
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/about">À propos</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
     <h1>${escapeHtml(greeting(name))}</h1>
   </body>
 </html>
