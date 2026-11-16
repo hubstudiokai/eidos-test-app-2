@@ -26,23 +26,39 @@ function page(name) {
     <meta charset="utf-8" />
     <title>Application de test</title>
     <style>
+      :root {
+        --primary-color: #2c3e50;
+        --accent-color: #3498db;
+        --bg-color: #f8f9fa;
+        --text-color: #333333;
+        --nav-bg: #ffffff;
+      }
       body {
-        background-color: green;
+        background-color: var(--bg-color);
+        color: var(--text-color);
         margin: 0;
-        font-family: sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
       }
       nav {
-        background: #333;
-        color: white;
-        padding: 1rem;
+        background: var(--nav-bg);
+        color: var(--primary-color);
+        padding: 1rem 2rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      .logo {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: var(--primary-color);
       }
       .menu-toggle {
         display: none;
         cursor: pointer;
         font-size: 1.5rem;
+        color: var(--primary-color);
       }
       .menu-items {
         display: flex;
@@ -51,11 +67,29 @@ function page(name) {
         padding: 0;
       }
       .menu-items li {
-        margin-left: 1rem;
+        margin-left: 1.5rem;
       }
       .menu-items a {
-        color: white;
+        color: var(--primary-color);
         text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .menu-items a:hover {
+        color: var(--accent-color);
+      }
+      main {
+        max-width: 800px;
+        margin: 4rem auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        text-align: center;
+      }
+      h1 {
+        color: var(--primary-color);
+        margin-top: 0;
       }
       @media (max-width: 600px) {
         .menu-toggle {
@@ -65,24 +99,30 @@ function page(name) {
           display: none;
           flex-direction: column;
           position: absolute;
-          top: 3.5rem;
-          right: 0;
-          background: #333;
+          top: 4rem;
+          left: 0;
+          background: white;
           width: 100%;
-          padding: 1rem;
+          padding: 1rem 2rem;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+          box-sizing: border-box;
         }
         .menu-items.show {
           display: flex;
         }
         .menu-items li {
-          margin: 0.5rem 0;
+          margin: 0.75rem 0;
+        }
+        main {
+          margin: 2rem 1rem;
+          padding: 1.5rem;
         }
       }
     </style>
   </head>
   <body>
     <nav>
-      <div>Mon Site</div>
+      <div class="logo">Mon Site</div>
       <div class="menu-toggle" onclick="document.querySelector('.menu-items').classList.toggle('show')">☰</div>
       <ul class="menu-items">
         <li><a href="/">Accueil</a></li>
@@ -90,7 +130,9 @@ function page(name) {
         <li><a href="/contact">Contact</a></li>
       </ul>
     </nav>
-    <h1>${escapeHtml(greeting(name))}</h1>
+    <main>
+      <h1>${escapeHtml(greeting(name))}</h1>
+    </main>
   </body>
 </html>
 `;
