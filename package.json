@@ -8,7 +8,7 @@
     "node": ">=24"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "node --watch server.js",
     "test": "node --test",
     "lint": "node --check server.js && node --check src/greeting.js && node --check src/app.js"
   }
