@@ -52,7 +52,7 @@ test('shows the about page', async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /<h1>À propos<\/h1>/);
-  assert.match(html, /h1 { color: #3498db; }/);
+  assert.match(html, /--primary-color: #d4af37;/);
   assert.match(html, /Cette application est une démonstration technique créée pour tester nos processus\./);
   assert.match(html, /Elle illustre comment des modifications peuvent être intégrées et déployées en continu\./);
 });
@@ -66,5 +66,13 @@ test('shows the responsive hamburger menu with correct items', async () => {
   assert.match(html, />Accueil<\/a>/);
   assert.match(html, />À propos<\/a>/);
   assert.match(html, />Contact<\/a>/);
+});
+
+test('shows the premium contact page', async () => {
+  const response = await fetch(`${base}/contact`);
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /<h1>Contactez-nous<\/h1>/);
+  assert.match(html, /Pour toute demande concernant notre Édition Privilège/);
 });
 
