@@ -68,3 +68,11 @@ test('shows the responsive hamburger menu with correct items', async () => {
   assert.match(html, />Contact<\/a>/);
 });
 
+test('shows the premium contact page', async () => {
+  const response = await fetch(`${base}/contact`);
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /<h1>Contactez-nous<\/h1>/);
+  assert.match(html, /Pour toute demande concernant notre Édition Privilège/);
+});
+

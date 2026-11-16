@@ -280,6 +280,46 @@ export function handle(request, response) {
     <a href="/">Retour à l&#39;accueil</a>
   </body>
 </html>`);
+  } else if (url.pathname === '/contact') {
+    response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    response.end(`<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact - Édition Privilège</title>
+    <style>
+      :root {
+        --primary-color: #d4af37;
+        --bg-color: #0b0b0e;
+        --text-color: #f4efe6;
+      }
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: sans-serif;
+        text-align: center;
+        padding: 2rem;
+      }
+      h1 { color: var(--primary-color); }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: #15151b;
+        border: 1px solid #d4af3740;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Contactez-nous</h1>
+      <p>Pour toute demande concernant notre Édition Privilège, veuillez nous écrire.</p>
+      <a href="/" style="color: var(--primary-color);">Retour à l&#39;accueil</a>
+    </div>
+  </body>
+</html>`);
   } else if (url.pathname === '/api/greeting') {
     response.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
     response.end(JSON.stringify({ greeting: greeting(name) }));
