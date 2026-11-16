@@ -46,3 +46,15 @@ test('answers 404 to an unknown path and 405 to another method', async () => {
   assert.equal(posted.status, 405);
   assert.equal(posted.headers.get('allow'), 'GET');
 });
+
+test('shows the responsive hamburger menu with correct items', async () => {
+  const response = await fetch(`${base}/`);
+  const html = await response.text();
+  assert.match(html, /<nav>/);
+  assert.match(html, /class="menu-toggle"/);
+  assert.match(html, /class="menu-items"/);
+  assert.match(html, />Accueil<\/a>/);
+  assert.match(html, />À propos<\/a>/);
+  assert.match(html, />Contact<\/a>/);
+});
+

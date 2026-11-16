@@ -18,6 +18,6 @@ after(() => new Promise((resolve) => server.close(resolve)));
 test('has the correct background color and heading size', async () => {
   const response = await fetch(`${base}/`);
   const html = await response.text();
-  assert.match(html, /background-color: blue;/);
-  assert.match(html, /h1\s*{\s*font-size: 3em;\s*}/);
+  assert.match(html, /background-color: var\(--bg-color\);/);
+  assert.match(html, /h1\s*{\s*color: var\(--primary-color\);\s*margin-top: 0;\s*}/);
 });
