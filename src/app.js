@@ -29,7 +29,7 @@ function page(name) {
       :root {
         --primary-color: #2c3e50;
         --accent-color: #3498db;
-        --bg-color: #f8f9fa;
+        --bg-color: #e8f8f5;
         --text-color: #333333;
         --nav-bg: #ffffff;
       }
