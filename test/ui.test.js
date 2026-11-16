@@ -21,3 +21,9 @@ test('has the correct background color and heading size', async () => {
   assert.match(html, /background-color: var\(--bg-color\);/);
   assert.match(html, /h1\s*{\s*color: var\(--primary-color\);\s*margin-top: 0;\s*}/);
 });
+
+test('has a Contact link in the footer', async () => {
+  const response = await fetch(`${base}/`);
+  const html = await response.text();
+  assert.match(html, /<footer>\s*<a href="\/contact">Contact<\/a>\s*<\/footer>/);
+});
