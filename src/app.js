@@ -154,6 +154,24 @@ export function handle(request, response) {
   } else if (url.pathname === '/') {
     response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     response.end(page(name));
+  } else if (url.pathname === '/about') {
+    response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    response.end(`<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>À propos - Application de test</title>
+    <style>
+      h1 { color: #3498db; }
+    </style>
+  </head>
+  <body>
+    <h1>À propos</h1>
+    <p>Cette application est une démonstration technique créée pour tester nos processus.</p>
+    <p>Elle illustre comment des modifications peuvent être intégrées et déployées en continu.</p>
+    <a href="/">Retour à l&#39;accueil</a>
+  </body>
+</html>`);
   } else if (url.pathname === '/api/greeting') {
     response.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
     response.end(JSON.stringify({ greeting: greeting(name) }));
