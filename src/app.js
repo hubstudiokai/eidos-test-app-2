@@ -27,7 +27,10 @@ function page(name) {
     <title>Application de test</title>
     <style>
       body {
-        background-color: green;
+        background-color: blue;
+      }
+      h1 {
+        font-size: 3em;
       }
     </style>
   </head>
