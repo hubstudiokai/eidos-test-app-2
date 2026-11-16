@@ -47,6 +47,16 @@ test('answers 404 to an unknown path and 405 to another method', async () => {
   assert.equal(posted.headers.get('allow'), 'GET');
 });
 
+test('shows the about page', async () => {
+  const response = await fetch(`${base}/about`);
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /<h1>À propos<\/h1>/);
+  assert.match(html, /h1 { color: #3498db; }/);
+  assert.match(html, /Cette application est une démonstration technique créée pour tester nos processus\./);
+  assert.match(html, /Elle illustre comment des modifications peuvent être intégrées et déployées en continu\./);
+});
+
 test('shows the responsive hamburger menu with correct items', async () => {
   const response = await fetch(`${base}/`);
   const html = await response.text();
