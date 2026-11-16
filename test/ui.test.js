@@ -27,3 +27,17 @@ test('has a Contact link in the footer', async () => {
   const html = await response.text();
   assert.match(html, /<footer>\s*<a href="\/contact">Contact<\/a>\s*<\/footer>/);
 });
+
+test('uses a premium gold and black theme', async () => {
+  const response = await fetch(`${base}/`);
+  const html = await response.text();
+  assert.match(html, /--primary-color:\s*#d4af37;/);
+  assert.match(html, /--bg-color:\s*#0b0b0e;/);
+  assert.match(html, /class="premium-badge"/);
+});
+
+test('displays a PC hero image on the home page', async () => {
+  const response = await fetch(`${base}/`);
+  const html = await response.text();
+  assert.match(html, /<img\s+[^>]*class="hero-image"[^>]*alt="[^"]*PC[^"]*"[^>]*>/i);
+});
