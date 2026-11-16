@@ -268,16 +268,45 @@ export function handle(request, response) {
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
-    <title>À propos - Application de test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>À propos - Édition Privilège</title>
     <style>
-      h1 { color: #3498db; }
+      :root {
+        --primary-color: #d4af37;
+        --bg-color: #0b0b0e;
+        --text-color: #f4efe6;
+        --gold-border: rgba(212, 175, 55, 0.35);
+      }
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      main {
+        max-width: 600px;
+        margin: 4rem auto;
+        padding: 3rem;
+        background: linear-gradient(145deg, #1a1a22, #111116);
+        border: 1px solid var(--gold-border);
+        border-radius: 16px;
+        text-align: center;
+      }
+      h1 { color: var(--primary-color); }
+      a { color: var(--primary-color); text-decoration: none; }
     </style>
   </head>
   <body>
-    <h1>À propos</h1>
-    <p>Cette application est une démonstration technique créée pour tester nos processus.</p>
-    <p>Elle illustre comment des modifications peuvent être intégrées et déployées en continu.</p>
-    <a href="/">Retour à l&#39;accueil</a>
+    <main>
+      <h1>À propos</h1>
+      <p>Cette application est une démonstration technique créée pour tester nos processus.</p>
+      <p>Elle illustre comment des modifications peuvent être intégrées et déployées en continu.</p>
+      <a href="/">Retour à l&#39;accueil</a>
+    </main>
   </body>
 </html>`);
   } else if (url.pathname === '/contact') {
