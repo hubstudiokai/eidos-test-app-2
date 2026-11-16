@@ -134,8 +134,12 @@ function page(name) {
     <main>
       <h1>${escapeHtml(greeting(name))}</h1>
     </main>
+    <footer>
+      <a href="/contact">Contact</a>
+    </footer>
   </body>
 </html>
+
 `;
 }
 
