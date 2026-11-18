@@ -157,13 +157,15 @@ function page(name) {
         background: rgba(212, 175, 55, 0.08);
       }
       h1 {
-        color: var(--primary-color);
+        background: linear-gradient(to right, blue, red);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         margin-top: 0;
       }
       main h1 {
         font-family: Georgia, "Times New Roman", serif;
         font-size: 2.5rem;
-        font-weight: 600;
+        font-weight: 800;
         letter-spacing: 0.02em;
         margin-bottom: 1rem;
       }
