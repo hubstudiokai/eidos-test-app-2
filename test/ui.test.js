@@ -41,3 +41,17 @@ test('displays a PC hero image on the home page', async () => {
   const html = await response.text();
   assert.match(html, /<img\s+[^>]*class="hero-image"[^>]*alt="[^"]*PC[^"]*"[^>]*>/i);
 });
+
+test('displays the new excellence values section on the home page', async () => {
+  const response = await fetch(`${base}/`);
+  const html = await response.text();
+  assert.match(html, /Nos Valeurs d'Excellence/);
+  assert.match(html, /Chaque détail est rigoureusement façonné pour vous offrir une fiabilité absolue et un design intemporel\./);
+});
+
+test('displays the concierge service section on the home page', async () => {
+  const response = await fetch(`${base}/`);
+  const html = await response.text();
+  assert.match(html, /Service Conciergerie/);
+  assert.match(html, /Un accompagnement personnalisé disponible en tout temps pour répondre à vos exigences les plus élevées\./);
+});

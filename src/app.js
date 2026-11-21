@@ -243,6 +243,14 @@ function page(name) {
       <div class="premium-badge">Édition Privilège</div>
       <h1>${escapeHtml(greeting(name))}</h1>
       <p class="subtitle">Une expérience pensée sur mesure, alliant élégance, sobriété et excellence.</p>
+      <section style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--gold-border);">
+        <h2 style="color: var(--primary-color); font-size: 1.35rem; margin-bottom: 0.75rem;">Nos Valeurs d'Excellence</h2>
+        <p class="subtitle">Chaque détail est rigoureusement façonné pour vous offrir une fiabilité absolue et un design intemporel.</p>
+      </section>
+      <section style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--gold-border);">
+        <h2 style="color: var(--primary-color); font-size: 1.35rem; margin-bottom: 0.75rem;">Services Premium</h2>
+        <p class="subtitle">Bénéficiez d'une conciergerie dédiée et d'un support prioritaire 24/7 pour une tranquillité d'esprit totale.</p>
+      </section>
     </main>
     <footer>
       <a href="/contact">Contact</a>
