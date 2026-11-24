@@ -18,7 +18,7 @@ after(() => new Promise((resolve) => server.close(resolve)));
 test('shows the greeting page', async () => {
   const response = await fetch(`${base}/?name=Ada`);
   assert.equal(response.status, 200);
-  assert.match(await response.text(), /<h1>Bonjour, Ada !<\/h1>/);
+  assert.match(await response.text(), /<h1>Bienvenue à tous, Ada !<\/h1>/);
 });
 
 test('never lets a name inject markup', async () => {
@@ -31,7 +31,7 @@ test('never lets a name inject markup', async () => {
 test('answers the greeting as JSON', async () => {
   const response = await fetch(`${base}/api/greeting?name=Grace`);
   assert.equal(response.status, 200);
-  assert.deepEqual(await response.json(), { greeting: 'Bonjour, Grace !' });
+  assert.deepEqual(await response.json(), { greeting: 'Bienvenue à tous, Grace !' });
 });
 
 test('says it is up', async () => {
