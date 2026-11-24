@@ -22,10 +22,11 @@ test('has the correct background color and heading color style', async () => {
   assert.match(html, /h1\s*{\s*background:\s*linear-gradient/);
 });
 
-test('has a Contact link in the footer', async () => {
+test('has a Contact link and copyright in the footer', async () => {
   const response = await fetch(`${base}/`);
   const html = await response.text();
-  assert.match(html, /<footer>\s*<a href="\/contact">Contact<\/a>\s*<\/footer>/);
+  assert.match(html, /<footer>\s*<a href="\/contact">Contact<\/a>/);
+  assert.match(html, /© 2026 Édition Privilège\. Tous droits réservés\./);
 });
 
 test('uses a premium gold and black theme', async () => {
@@ -40,4 +41,11 @@ test('displays a PC hero image on the home page', async () => {
   const response = await fetch(`${base}/`);
   const html = await response.text();
   assert.match(html, /<img\s+[^>]*class="hero-image"[^>]*alt="[^"]*PC[^"]*"[^>]*>/i);
+});
+
+test('has a name input form', async () => {
+  const response = await fetch(`${base}/`);
+  const html = await response.text();
+  assert.match(html, /<form\s+action="\/"\s+method="GET"/);
+  assert.match(html, /<input\s+type="text"\s+name="name"/);
 });

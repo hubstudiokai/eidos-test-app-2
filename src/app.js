@@ -243,9 +243,14 @@ function page(name) {
       <div class="premium-badge">Édition Privilège</div>
       <h1>${escapeHtml(greeting(name))}</h1>
       <p class="subtitle">Une expérience pensée sur mesure, alliant élégance, sobriété et excellence.</p>
+      <form action="/" method="GET" style="margin-top: 2rem;">
+        <input type="text" name="name" placeholder="Votre prénom" maxlength="${40}" style="padding: 0.5rem; border-radius: 4px; border: 1px solid var(--gold-border); background: #15151b; color: var(--text-color);" />
+        <button type="submit" style="padding: 0.5rem 1rem; border-radius: 4px; border: none; background: var(--primary-color); color: #000; cursor: pointer; font-weight: bold;">Saluer</button>
+      </form>
     </main>
     <footer>
       <a href="/contact">Contact</a>
+      <p style="margin: 0.5rem 0 0; color: var(--muted-text); font-size: 0.9rem;">© 2026 Édition Privilège. Tous droits réservés.</p>
     </footer>
   </body>
 </html>
