@@ -83,6 +83,8 @@ function page(name) {
         line-height: 1.6;
       }
       nav {
+        position: relative;
+        z-index: 10;
         background: var(--nav-bg);
         color: var(--primary-color);
         padding: 1.1rem 2.5rem;
@@ -125,9 +127,18 @@ function page(name) {
         color: var(--accent-color);
       }
       main {
-        max-width: 720px;
+        max-width: 1080px;
         width: calc(100% - 2rem);
-        margin: 4.5rem auto;
+        margin: 3.5rem auto 4.5rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+      }
+      .hero-card {
+        max-width: 760px;
+        width: 100%;
+        margin: 0 auto;
         padding: 3.5rem 2.5rem;
         background: linear-gradient(145deg, #1a1a22, #111116);
         border: 1px solid var(--gold-border);
@@ -162,7 +173,7 @@ function page(name) {
         -webkit-text-fill-color: transparent;
         margin-top: 0;
       }
-      main h1 {
+      .hero-card h1 {
         font-family: Georgia, "Times New Roman", serif;
         font-size: 2.5rem;
         font-weight: 800;
@@ -174,6 +185,238 @@ function page(name) {
         font-size: 1.05rem;
         max-width: 520px;
         margin: 0 auto;
+      }
+      .form-hint {
+        color: var(--muted-text);
+        font-size: 0.9rem;
+        margin: 0.85rem 0 0;
+      }
+      .content-section {
+        background: linear-gradient(145deg, #16161d, #101015);
+        border: 1px solid var(--gold-border);
+        border-radius: 16px;
+        padding: 2.75rem 2.5rem;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+      }
+      .section-header {
+        text-align: center;
+        max-width: 680px;
+        margin: 0 auto 2.25rem;
+      }
+      .section-kicker {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+      }
+      .section-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.85rem;
+        color: var(--text-color);
+        margin: 0 0 0.75rem;
+      }
+      .section-lead {
+        color: var(--muted-text);
+        margin: 0;
+      }
+      .highlights-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.25rem;
+      }
+      .highlight-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(212, 175, 55, 0.22);
+        border-radius: 12px;
+        padding: 1.5rem 1.25rem;
+        text-align: center;
+      }
+      .highlight-value {
+        display: block;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        margin-bottom: 0.35rem;
+      }
+      .highlight-label {
+        display: block;
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 0.45rem;
+      }
+      .highlight-desc {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--muted-text);
+      }
+      .editorial-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 2.25rem;
+        align-items: start;
+      }
+      .editorial-text p {
+        color: var(--muted-text);
+        margin: 0 0 1.1rem;
+      }
+      .editorial-text p:last-child {
+        margin-bottom: 0;
+      }
+      .qualities-box {
+        background: rgba(212, 175, 55, 0.05);
+        border: 1px solid var(--gold-border);
+        border-radius: 12px;
+        padding: 1.75rem;
+      }
+      .qualities-box h3 {
+        margin: 0 0 1rem;
+        color: var(--accent-color);
+        font-size: 1.15rem;
+      }
+      .qualities-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+      }
+      .qualities-list li {
+        position: relative;
+        padding-left: 1.5rem;
+        color: var(--muted-text);
+        font-size: 0.95rem;
+      }
+      .qualities-list li::before {
+        content: "◆";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--primary-color);
+        font-size: 0.8rem;
+      }
+      .qualities-list strong {
+        color: var(--text-color);
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+      .feature-card {
+        background: rgba(15, 15, 20, 0.75);
+        border: 1px solid rgba(212, 175, 55, 0.25);
+        border-radius: 12px;
+        padding: 1.65rem 1.4rem;
+      }
+      .feature-tag {
+        display: inline-block;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--primary-color);
+        margin-bottom: 0.65rem;
+      }
+      .feature-card h3 {
+        margin: 0 0 0.6rem;
+        color: var(--text-color);
+        font-size: 1.15rem;
+      }
+      .feature-card p {
+        margin: 0;
+        color: var(--muted-text);
+        font-size: 0.95rem;
+      }
+      .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+      .step-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(212, 175, 55, 0.24);
+        border-radius: 12px;
+        padding: 1.75rem 1.4rem;
+      }
+      .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 999px;
+        border: 1px solid var(--gold-border);
+        background: rgba(212, 175, 55, 0.12);
+        color: var(--accent-color);
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+      .step-card h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1.1rem;
+        color: var(--text-color);
+      }
+      .step-card p {
+        margin: 0;
+        color: var(--muted-text);
+        font-size: 0.95rem;
+      }
+      .faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 820px;
+        margin: 0 auto;
+      }
+      .faq-item {
+        background: rgba(15, 15, 20, 0.8);
+        border: 1px solid rgba(212, 175, 55, 0.26);
+        border-radius: 10px;
+        padding: 1.15rem 1.4rem;
+      }
+      .faq-item summary {
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--accent-color);
+        list-style: none;
+      }
+      .faq-item p {
+        margin: 0.85rem 0 0;
+        color: var(--muted-text);
+        font-size: 0.95rem;
+      }
+      .cta-section {
+        text-align: center;
+        background: linear-gradient(145deg, rgba(212, 175, 55, 0.12), rgba(20, 20, 28, 0.95));
+      }
+      .cta-actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1.75rem;
+      }
+      .cta-primary {
+        display: inline-block;
+        padding: 0.75rem 1.6rem;
+        border-radius: 8px;
+        background: var(--primary-color);
+        color: #0b0b0e;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .cta-secondary {
+        display: inline-block;
+        padding: 0.75rem 1.6rem;
+        border-radius: 8px;
+        border: 1px solid var(--gold-border);
+        color: var(--accent-color);
+        font-weight: 600;
+        text-decoration: none;
       }
       footer {
         margin-top: auto;
@@ -191,6 +434,16 @@ function page(name) {
       }
       footer a:hover {
         color: var(--accent-color);
+      }
+      @media (max-width: 900px) {
+        .highlights-grid,
+        .features-grid,
+        .steps-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .editorial-grid {
+          grid-template-columns: 1fr;
+        }
       }
       @media (max-width: 600px) {
         nav {
@@ -219,11 +472,20 @@ function page(name) {
           margin: 0.75rem 0;
         }
         main {
-          margin: 2.5rem auto;
-          padding: 2.25rem 1.5rem;
+          margin: 2rem auto 3rem;
+          gap: 2rem;
         }
-        main h1 {
+        .hero-card,
+        .content-section {
+          padding: 2rem 1.35rem;
+        }
+        .hero-card h1 {
           font-size: 1.9rem;
+        }
+        .highlights-grid,
+        .features-grid,
+        .steps-grid {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -239,14 +501,171 @@ function page(name) {
       </ul>
     </nav>
     <main>
-      <img class="hero-image" src="${HERO_IMAGE_SRC}" alt="Illustration d'un PC haut de gamme or et noir" />
-      <div class="premium-badge">Édition Privilège</div>
-      <h1>${escapeHtml(greeting(name))}</h1>
-      <p class="subtitle">Une expérience pensée sur mesure, alliant élégance, sobriété et excellence.</p>
-      <form action="/" method="GET" style="margin-top: 2rem;">
-        <input type="text" name="name" placeholder="Votre prénom" maxlength="${40}" style="padding: 0.5rem; border-radius: 4px; border: 1px solid var(--gold-border); background: #15151b; color: var(--text-color);" />
-        <button type="submit" style="padding: 0.5rem 1rem; border-radius: 4px; border: none; background: var(--primary-color); color: #000; cursor: pointer; font-weight: bold;">Saluer</button>
-      </form>
+      <section class="hero-card">
+        <img class="hero-image" src="${HERO_IMAGE_SRC}" alt="Illustration d'un PC haut de gamme or et noir" />
+        <div class="premium-badge">Édition Privilège</div>
+        <h1>${escapeHtml(greeting(name))}</h1>
+        <p class="subtitle">Une expérience pensée sur mesure, alliant élégance, sobriété et excellence.</p>
+        <form action="/" method="GET" style="margin-top: 2rem;">
+          <input type="text" name="name" placeholder="Votre prénom" maxlength="${40}" style="padding: 0.5rem; border-radius: 4px; border: 1px solid var(--gold-border); background: #15151b; color: var(--text-color);" />
+          <button type="submit" style="padding: 0.5rem 1rem; border-radius: 4px; border: none; background: var(--primary-color); color: #000; cursor: pointer; font-weight: bold;">Saluer</button>
+        </form>
+        <p class="form-hint">Saisissez votre prénom pour personnaliser instantanément votre message d'accueil.</p>
+      </section>
+
+      <section class="content-section highlights-section" aria-labelledby="highlights-heading">
+        <div class="section-header">
+          <span class="section-kicker">Nos Engagements</span>
+          <h2 id="highlights-heading" class="section-title">L'exigence au cœur de chaque détail</h2>
+          <p class="section-lead">Découvrez les principes qui guident l'Édition Privilège au quotidien pour offrir un accueil clair, rapide et soigné.</p>
+        </div>
+        <div class="highlights-grid">
+          <article class="highlight-card">
+            <span class="highlight-value">100 %</span>
+            <span class="highlight-label">Sur mesure</span>
+            <p class="highlight-desc">Un accueil adaptable qui met chaque visiteur à l'honneur dès son arrivée.</p>
+          </article>
+          <article class="highlight-card">
+            <span class="highlight-value">24/7</span>
+            <span class="highlight-label">Disponibilité continue</span>
+            <p class="highlight-desc">Un service accessible à tout moment avec une réponse rapide et constante.</p>
+          </article>
+          <article class="highlight-card">
+            <span class="highlight-value">Or &amp; Noir</span>
+            <span class="highlight-label">Identité affirmée</span>
+            <p class="highlight-desc">Une présentation contrastée et élégante qui facilite la lecture sur tous les écrans.</p>
+          </article>
+          <article class="highlight-card">
+            <span class="highlight-value">40 car.</span>
+            <span class="highlight-label">Mise en page préservée</span>
+            <p class="highlight-desc">Un format équilibré pour afficher chaque prénom sans jamais rompre l'harmonie visuelle.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section editorial-section" aria-labelledby="editorial-heading">
+        <div class="section-header">
+          <span class="section-kicker">Notre Philosophie</span>
+          <h2 id="editorial-heading" class="section-title">L'art d'allier sobriété, précision et confort</h2>
+        </div>
+        <div class="editorial-grid">
+          <div class="editorial-text">
+            <p>L'Édition Privilège a été imaginée pour transformer une simple visite en un moment d'accueil attentif. Dès le premier regard, l'équilibre entre les tons sombres et les touches dorées installe une atmosphère sereine, lisible et chaleureuse.</p>
+            <p>Chaque élément de la page occupe une place précise : le message de bienvenue s'adapte à votre prénom, la navigation reste accessible à tout instant et les informations essentielles se lisent sans effort, sur grand écran comme sur téléphone mobile.</p>
+            <p>Plutôt que de multiplier les distractions, nous privilégions la clarté du propos, la rapidité d'affichage et la fiabilité de chaque interaction.</p>
+          </div>
+          <aside class="qualities-box">
+            <h3>Ce qui fait la différence</h3>
+            <ul class="qualities-list">
+              <li><strong>Accueil personnalisé :</strong> modifiez le titre principal à volonté grâce au formulaire dédié.</li>
+              <li><strong>Lisibilité soignée :</strong> une typographie nette et des contrastes étudiés pour un confort durable.</li>
+              <li><strong>Protection des saisies :</strong> chaque texte envoyé est vérifié et affiché en toute sécurité.</li>
+              <li><strong>Navigation fluide :</strong> passez librement de l'accueil aux pages À propos et Contact.</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="content-section features-section" aria-labelledby="features-heading">
+        <div class="section-header">
+          <span class="section-kicker">Découverte</span>
+          <h2 id="features-heading" class="section-title">Une expérience complète à explorer</h2>
+          <p class="section-lead">Retrouvez l'ensemble des atouts pensés pour rendre votre visite agréable, utile et structurée.</p>
+        </div>
+        <div class="features-grid">
+          <article class="feature-card">
+            <span class="feature-tag">Personnalisation</span>
+            <h3>Message instantané</h3>
+            <p>Entrez un prénom dans le formulaire principal et observez le message de bienvenue s'actualiser immédiatement en haut de la page.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-tag">Esthétique</span>
+            <h3>Finition Privilège</h3>
+            <p>Des surfaces sombres relevées par des bordures dorées créent un ensemble cohérent de l'en-tête jusqu'au pied de page.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-tag">Accessibilité</span>
+            <h3>Adaptation mobile</h3>
+            <p>Sur petit écran, les grilles se réorganisent sur une colonne et le menu se replie sous un bouton discret et pratique.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-tag">Performance</span>
+            <h3>Affichage direct</h3>
+            <p>Chaque page s'ouvre sans délai superflu afin de vous laisser consulter immédiatement le contenu recherché.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-tag">Transparence</span>
+            <h3>Présentation claire</h3>
+            <p>La rubrique À propos détaille l'esprit du projet et la façon dont ses améliorations prennent vie au fil du temps.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-tag">Accompagnement</span>
+            <h3>Prise de contact</h3>
+            <p>Une page Contact dédiée vous permet de retrouver facilement nos coordonnées d'échange à tout moment de votre visite.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section steps-section" aria-labelledby="steps-heading">
+        <div class="section-header">
+          <span class="section-kicker">Mode d'emploi</span>
+          <h2 id="steps-heading" class="section-title">Votre parcours en trois étapes</h2>
+          <p class="section-lead">Profitez pleinement de la page d'accueil en quelques secondes seulement.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card">
+            <span class="step-number">1</span>
+            <h3>Renseignez votre prénom</h3>
+            <p>Utilisez le champ « Votre prénom » situé juste sous le titre principal pour indiquer le nom à afficher.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-number">2</span>
+            <h3>Validez avec Saluer</h3>
+            <p>Cliquez sur le bouton doré « Saluer » pour générer instantanément votre accueil personnalisé sur la page.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-number">3</span>
+            <h3>Parcourez les rubriques</h3>
+            <p>Consultez nos engagements, parcourez la foire aux questions ou visitez les pages À propos et Contact.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section faq-section" aria-labelledby="faq-heading">
+        <div class="section-header">
+          <span class="section-kicker">Questions Fréquentes</span>
+          <h2 id="faq-heading" class="section-title">Tout savoir sur la page d'accueil</h2>
+          <p class="section-lead">Les réponses aux questions les plus courantes concernant l'utilisation du site.</p>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>Comment personnaliser le message de bienvenue ?</summary>
+            <p>Saisissez simplement un prénom dans le champ prévu en haut de la page d'accueil, puis cliquez sur le bouton « Saluer ». Si le champ est laissé vide, le message s'adresse à l'ensemble des visiteurs.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Que se passe-t-il si le prénom saisi est très long ?</summary>
+            <p>Afin de conserver une mise en page équilibrée sur tous les appareils, le prénom affiché est automatiquement limité à 40 caractères.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Le site reste-t-il confortable sur téléphone mobile ?</summary>
+            <p>Oui. Chaque bloc s'ajuste automatiquement à la largeur de votre écran et le menu principal reste accessible en un geste depuis le bouton en haut à droite.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Comment consulter la présentation du projet ou vous contacter ?</summary>
+            <p>Vous pouvez utiliser les liens « À propos » et « Contact » situés dans la barre de navigation en haut de la page, ou cliquer sur les boutons ci-dessous.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="content-section cta-section" aria-labelledby="cta-heading">
+        <span class="section-kicker">Prochaine Étape</span>
+        <h2 id="cta-heading" class="section-title">Poursuivez votre visite</h2>
+        <p class="section-lead" style="max-width: 580px; margin: 0 auto;">Découvrez l'histoire de cette démonstration sur la page À propos ou accédez à notre page Contact pour toute question.</p>
+        <div class="cta-actions">
+          <a href="/about" class="cta-primary">Découvrir À propos</a>
+          <a href="/contact" class="cta-secondary">Nous contacter</a>
+        </div>
+      </section>
     </main>
     <footer>
       <a href="/contact">Contact</a>
