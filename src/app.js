@@ -1,6 +1,10 @@
 /**
  * The app's HTTP routes, with no dependency but Node itself:
  * - `GET /` shows the greeting page; `?name=Ada` greets Ada;
+ * - `GET /services` shows the services presentation page;
+ * - `GET /actualites` shows the news and announcements page;
+ * - `GET /about` shows the about page;
+ * - `GET /contact` shows the contact page;
  * - `GET /api/greeting?name=Ada` answers the greeting as JSON;
  * - `GET /health` answers `ok`, so that a preview knows the app is up.
  * Any other path answers 404.
@@ -52,14 +56,14 @@ const HERO_IMAGE_SRC =
   <line x1="42" y1="117" x2="178" y2="117" stroke="url(#gold)" stroke-width="0.9" stroke-opacity="0.5"/>
 </svg>`);
 
-/** Returns the greeting page for `name`. */
-function page(name) {
+/** Wraps page content in a consistent gold-and-black HTML shell. */
+function renderLayout({ title, bodyContent }) {
   return `<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Application de test</title>
+    <title>${escapeHtml(title)}</title>
     <style>
       html {
         scroll-behavior: smooth;
@@ -423,20 +427,65 @@ function page(name) {
       }
       footer {
         margin-top: auto;
-        padding: 1.75rem 2rem;
-        text-align: center;
+        padding: 2.5rem 2rem 1.75rem;
         border-top: 1px solid var(--gold-border);
-        background: rgba(15, 15, 20, 0.8);
+        background: rgba(15, 15, 20, 0.95);
       }
-      footer a {
+      footer > a {
+        display: inline-block;
+        margin-bottom: 1.5rem;
         color: var(--primary-color);
         text-decoration: none;
         font-weight: 500;
         letter-spacing: 0.05em;
         transition: color 0.2s ease;
       }
-      footer a:hover {
+      footer > a:hover {
         color: var(--accent-color);
+      }
+      .footer-columns {
+        max-width: 1080px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 2rem;
+        text-align: left;
+      }
+      .footer-column h3 {
+        color: var(--accent-color);
+        font-size: 1.05rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        letter-spacing: 0.05em;
+      }
+      .footer-column ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .footer-column li {
+        margin-bottom: 0.6rem;
+      }
+      .footer-column a {
+        color: var(--muted-text);
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: color 0.2s ease;
+      }
+      .footer-column a:hover {
+        color: var(--accent-color);
+      }
+      .footer-column p {
+        color: var(--muted-text);
+        font-size: 0.92rem;
+        margin: 0 0 0.5rem;
+      }
+      .footer-bottom {
+        max-width: 1080px;
+        margin: 2rem auto 0;
+        padding-top: 1.25rem;
+        border-top: 1px solid rgba(212, 175, 55, 0.15);
+        text-align: center;
       }
       .back-to-top {
         position: fixed;
@@ -474,6 +523,9 @@ function page(name) {
         }
         .editorial-grid {
           grid-template-columns: 1fr;
+        }
+        .footer-columns {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
         .back-to-top {
           bottom: 2rem;
@@ -519,7 +571,8 @@ function page(name) {
         }
         .highlights-grid,
         .features-grid,
-        .steps-grid {
+        .steps-grid,
+        .footer-columns {
           grid-template-columns: 1fr;
         }
         .back-to-top {
@@ -538,11 +591,52 @@ function page(name) {
       <div class="menu-toggle" onclick="document.querySelector('.menu-items').classList.toggle('show')">☰</div>
       <ul class="menu-items">
         <li><a href="/">Accueil</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/actualites">Actualités</a></li>
         <li><a href="/about">À propos</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
     </nav>
     <main>
+      ${bodyContent}
+    </main>
+    <footer>
+      <a href="/contact">Contact</a>
+      <div class="footer-columns">
+        <div class="footer-column">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/actualites">Actualités</a></li>
+            <li><a href="/about">À propos</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Informations</h3>
+          <p>Édition Privilège - Portail d'accueil d'excellence et de personnalisation sur mesure.</p>
+          <p>Disponibilité 24/7 et adaptation complète aux écrans mobiles.</p>
+        </div>
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <p>Pour toute question ou assistance, accédez à notre page dédiée.</p>
+          <p><a href="/contact">Page de Contact &rarr;</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p style="margin: 0; color: var(--muted-text); font-size: 0.9rem;">© 2026 Édition Privilège. Tous droits réservés.</p>
+      </div>
+    </footer>
+    <a href="#top" class="back-to-top" aria-label="Remonter en haut de la page" title="Remonter en haut">↑</a>
+  </body>
+</html>
+`;
+}
+
+/** Returns the home page for `name`. */
+function homePage(name) {
+  const bodyContent = `
       <section class="hero-card">
         <img class="hero-image" src="${HERO_IMAGE_SRC}" alt="Illustration d'un PC haut de gamme or et noir" />
         <div class="premium-badge">Édition Privilège</div>
@@ -708,16 +802,158 @@ function page(name) {
           <a href="/contact" class="cta-secondary">Nous contacter</a>
         </div>
       </section>
-    </main>
-    <footer>
-      <a href="/contact">Contact</a>
-      <p style="margin: 0.5rem 0 0; color: var(--muted-text); font-size: 0.9rem;">© 2026 Édition Privilège. Tous droits réservés.</p>
-    </footer>
-    <a href="#top" class="back-to-top" aria-label="Remonter en haut de la page" title="Remonter en haut">↑</a>
-  </body>
-</html>
+  `;
+  return renderLayout({ title: 'Application de test', bodyContent });
+}
 
-`;
+/** Returns the services page HTML. */
+function servicesPage() {
+  const bodyContent = `
+    <section class="hero-card">
+      <div class="premium-badge">Catalogue de Prestations</div>
+      <h1>Nos Services</h1>
+      <p class="subtitle">Découvrez notre gamme complète de services conçus pour offrir une expérience fluide, sécurisée et élégante.</p>
+    </section>
+
+    <section class="content-section">
+      <div class="section-header">
+        <span class="section-kicker">Offre Privilège</span>
+        <h2 class="section-title">Des solutions sur mesure pour tous les visiteurs</h2>
+        <p class="section-lead">Nous mettons notre savoir-faire au service de votre confort de navigation et de la qualité de vos échanges.</p>
+      </div>
+
+      <div class="features-grid">
+        <article class="feature-card">
+          <span class="feature-tag">Accueil &amp; Personnalisation</span>
+          <h3>Salutations Dynamiques</h3>
+          <p>Personnalisez chaque visite avec des salutations personnalisées instantanées, calibrées pour une lisibilité parfaite.</p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-tag">Disponibilité</span>
+          <h3>Service Continu 24/7</h3>
+          <p>Un accès permanent et ininterrompu à l'ensemble du portail, avec des temps de réponse ultra-rapides.</p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-tag">Sécurité</span>
+          <h3>Protection &amp; Confidentialité</h3>
+          <p>Toutes les données saisies sont soigneusement échappées pour garantir une sécurité maximale à nos utilisateurs.</p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-tag">Ergonomie</span>
+          <h3>Design Responsive</h3>
+          <p>Une interface or et noir haut de gamme adaptée automatiquement pour smartphones, tablettes et ordinateurs.</p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-tag">Information</span>
+          <h3>Journal des Actualités</h3>
+          <p>Suivez les évolutions, mises à jour et nouvelles fonctionnalités déployées en temps réel sur le portail.</p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-tag">Support</span>
+          <h3>Assistance Dédiée</h3>
+          <p>Un canal de contact direct pour répondre à vos questions et recueillir vos suggestions d'amélioration.</p>
+        </article>
+      </div>
+    </section>
+  `;
+  return renderLayout({ title: 'Nos Services - Édition Privilège', bodyContent });
+}
+
+/** Returns the news page HTML. */
+function newsPage() {
+  const bodyContent = `
+    <section class="hero-card">
+      <div class="premium-badge">Journal du Portail</div>
+      <h1>Actualités</h1>
+      <p class="subtitle">Suivez les dernières nouveautés, annonces et évolutions de l'Édition Privilège.</p>
+    </section>
+
+    <section class="content-section">
+      <div class="section-header">
+        <span class="section-kicker">Dernières Annonces</span>
+        <h2 class="section-title">La vie du portail au fil du temps</h2>
+        <p class="section-lead">Retrouvez toutes les étapes marquantes du développement de notre plateforme.</p>
+      </div>
+
+      <div class="features-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+        <article class="feature-card">
+          <span class="feature-tag">25 Novembre 2026</span>
+          <h3>Transformation en Portail Complet</h3>
+          <p>L'application s'enrichit de nouvelles rubriques consacrées aux services et aux actualités, ainsi que d'une navigation mobile fluidifiée.</p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-tag">20 Novembre 2026</span>
+          <h3>Bouton de Défilement Fluidifié</h3>
+          <p>Ajout d'un bouton flottant élégant permettant aux visiteurs de remonter en haut de page d'un seul clic.</p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-tag">15 Novembre 2026</span>
+          <h3>Refonte Visuelle Or &amp; Noir</h3>
+          <p>Mise en place de la charte graphique Édition Privilège offrant un contraste saisissant et un grand confort de lecture.</p>
+        </article>
+
+        <article class="feature-card">
+          <span class="feature-tag">10 Novembre 2026</span>
+          <h3>Module de Welcoming Sécurisé</h3>
+          <p>Intégration du système de salutation personnalisé avec protection renforcée contre les injections d'éléments HTML.</p>
+        </article>
+      </div>
+    </section>
+  `;
+  return renderLayout({ title: 'Actualités - Édition Privilège', bodyContent });
+}
+
+/** Returns the about page HTML. */
+function aboutPage() {
+  const bodyContent = `
+    <section class="hero-card" style="max-width: 800px;">
+      <div class="premium-badge">Présentation</div>
+      <h1>À propos</h1>
+      <p class="subtitle" style="margin-bottom: 1.5rem;">Découvrez les coulisses et les principes fondateurs du portail Édition Privilège.</p>
+      <div style="text-align: left; color: var(--muted-text); display: flex; flex-direction: column; gap: 1rem;">
+        <p>Cette application est une démonstration technique créée pour tester nos processus.</p>
+        <p>Elle illustre comment des modifications peuvent être intégrées et déployées en continu.</p>
+        <p>En évoluant vers un portail complet, elle garantit aux visiteurs un accès simple à l'ensemble des contenus, une navigation claire sur tous les supports et une sécurité éprouvée.</p>
+      </div>
+      <div style="margin-top: 2rem;">
+        <a href="/" class="cta-primary">Retour à l'accueil</a>
+      </div>
+    </section>
+  `;
+  return renderLayout({ title: 'À propos - Édition Privilège', bodyContent });
+}
+
+/** Returns the contact page HTML. */
+function contactPage() {
+  const bodyContent = `
+    <section class="hero-card" style="max-width: 760px;">
+      <div class="premium-badge">Assistance &amp; Échange</div>
+      <h1>Contactez-nous</h1>
+      <p class="subtitle">Pour toute demande concernant notre Édition Privilège, veuillez nous écrire.</p>
+
+      <div style="margin-top: 2.5rem; text-align: left; background: rgba(15, 15, 20, 0.75); border: 1px solid var(--gold-border); border-radius: 12px; padding: 2rem;">
+        <h3 style="color: var(--accent-color); margin-top: 0;">Nos coordonnées et support</h3>
+        <p style="color: var(--muted-text);">Notre équipe reste à votre écoute pour vous guider et répondre à vos questions sur le fonctionnement du portail.</p>
+        <ul style="list-style: none; padding: 0; color: var(--text-color); margin-top: 1.5rem;">
+          <li style="margin-bottom: 0.75rem;"><strong>Service Client :</strong> Édition Privilège - Support Continu</li>
+          <li style="margin-bottom: 0.75rem;"><strong>Disponibilité :</strong> Du lundi au dimanche, 24h/24</li>
+          <li style="margin-bottom: 0.75rem;"><strong>Réponse garantie :</strong> Traitement rapide de chaque message</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <a href="/" class="cta-primary">Retour à l'accueil</a>
+      </div>
+    </section>
+  `;
+  return renderLayout({ title: 'Contact - Édition Privilège', bodyContent });
 }
 
 /** Answers one request: `request` and `response` are Node's `http` objects. */
@@ -730,94 +966,19 @@ export function handle(request, response) {
     response.end('Method not allowed');
   } else if (url.pathname === '/') {
     response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    response.end(page(name));
+    response.end(homePage(name));
+  } else if (url.pathname === '/services') {
+    response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    response.end(servicesPage());
+  } else if (url.pathname === '/actualites') {
+    response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    response.end(newsPage());
   } else if (url.pathname === '/about') {
     response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    response.end(`<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>À propos - Édition Privilège</title>
-    <style>
-      :root {
-        --primary-color: #d4af37;
-        --bg-color: #0b0b0e;
-        --text-color: #f4efe6;
-        --gold-border: rgba(212, 175, 55, 0.35);
-      }
-      body {
-        background-color: var(--bg-color);
-        color: var(--text-color);
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        line-height: 1.6;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-      main {
-        max-width: 600px;
-        margin: 4rem auto;
-        padding: 3rem;
-        background: linear-gradient(145deg, #1a1a22, #111116);
-        border: 1px solid var(--gold-border);
-        border-radius: 16px;
-        text-align: center;
-      }
-      h1 { color: var(--primary-color); }
-      a { color: var(--primary-color); text-decoration: none; }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>À propos</h1>
-      <p>Cette application est une démonstration technique créée pour tester nos processus.</p>
-      <p>Elle illustre comment des modifications peuvent être intégrées et déployées en continu.</p>
-      <a href="/">Retour à l&#39;accueil</a>
-    </main>
-  </body>
-</html>`);
+    response.end(aboutPage());
   } else if (url.pathname === '/contact') {
     response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    response.end(`<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Contact - Édition Privilège</title>
-    <style>
-      :root {
-        --primary-color: #d4af37;
-        --bg-color: #0b0b0e;
-        --text-color: #f4efe6;
-      }
-      body {
-        background-color: var(--bg-color);
-        color: var(--text-color);
-        font-family: sans-serif;
-        text-align: center;
-        padding: 2rem;
-      }
-      h1 { color: var(--primary-color); }
-      .container {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 2rem;
-        background: #15151b;
-        border: 1px solid #d4af3740;
-        border-radius: 8px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Contactez-nous</h1>
-      <p>Pour toute demande concernant notre Édition Privilège, veuillez nous écrire.</p>
-      <a href="/" style="color: var(--primary-color);">Retour à l&#39;accueil</a>
-    </div>
-  </body>
-</html>`);
+    response.end(contactPage());
   } else if (url.pathname === '/api/greeting') {
     response.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
     response.end(JSON.stringify({ greeting: greeting(name) }));
