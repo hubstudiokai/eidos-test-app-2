@@ -61,6 +61,9 @@ function page(name) {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Application de test</title>
     <style>
+      html {
+        scroll-behavior: smooth;
+      }
       :root {
         --primary-color: #d4af37;
         --accent-color: #f3d578;
@@ -435,6 +438,34 @@ function page(name) {
       footer a:hover {
         color: var(--accent-color);
       }
+      .back-to-top {
+        position: fixed;
+        bottom: 2.5rem;
+        right: 2.5rem;
+        width: 3.25rem;
+        height: 3.25rem;
+        background: var(--primary-color);
+        color: #0b0b0e;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 10px rgba(212, 175, 55, 0.25);
+        z-index: 100;
+        transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .back-to-top:hover {
+        background: var(--accent-color);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(212, 175, 55, 0.4);
+      }
+      .back-to-top:active {
+        transform: translateY(-1px);
+      }
       @media (max-width: 900px) {
         .highlights-grid,
         .features-grid,
@@ -443,6 +474,10 @@ function page(name) {
         }
         .editorial-grid {
           grid-template-columns: 1fr;
+        }
+        .back-to-top {
+          bottom: 2rem;
+          right: 2rem;
         }
       }
       @media (max-width: 600px) {
@@ -487,10 +522,17 @@ function page(name) {
         .steps-grid {
           grid-template-columns: 1fr;
         }
+        .back-to-top {
+          bottom: 1.5rem;
+          right: 1.5rem;
+          width: 2.75rem;
+          height: 2.75rem;
+          font-size: 1.25rem;
+        }
       }
     </style>
   </head>
-  <body>
+  <body id="top">
     <nav>
       <div class="logo">Mon Site</div>
       <div class="menu-toggle" onclick="document.querySelector('.menu-items').classList.toggle('show')">☰</div>
@@ -671,6 +713,7 @@ function page(name) {
       <a href="/contact">Contact</a>
       <p style="margin: 0.5rem 0 0; color: var(--muted-text); font-size: 0.9rem;">© 2026 Édition Privilège. Tous droits réservés.</p>
     </footer>
+    <a href="#top" class="back-to-top" aria-label="Remonter en haut de la page" title="Remonter en haut">↑</a>
   </body>
 </html>
 

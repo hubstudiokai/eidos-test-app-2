@@ -65,3 +65,11 @@ test('renders the final call-to-action linking to about and contact pages', asyn
   assert.match(html, /<a href="\/about" class="cta-primary">Découvrir À propos<\/a>/);
   assert.match(html, /<a href="\/contact" class="cta-secondary">Nous contacter<\/a>/);
 });
+
+test('has a responsive floating back-to-top button', async () => {
+  const response = await fetch(`${base}/`);
+  const html = await response.text();
+  assert.match(html, /class="back-to-top"/);
+  assert.match(html, /aria-label="Remonter en haut de la page"/);
+  assert.match(html, /scroll-behavior:\s*smooth/);
+});
